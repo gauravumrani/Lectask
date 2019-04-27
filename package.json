@@ -1,0 +1,30 @@
+{
+  "name": "lectask",
+  "version": "1.0.0",
+  "description": "Electron based task management application which lets you to organise your tasks.",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gauravumrani/lectask.git"
+  },
+  "keywords": [
+    "electron",
+    "nodejs",
+    "task",
+    "javascript",
+    "react",
+    "redux"
+  ],
+  "author": "gauravumrani@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gauravumrani/lectask/issues"
+  },
+  "homepage": "https://github.com/gauravumrani/lectask#readme",
+  "devDependencies": {
+    "electron": "^5.0.0"
+  }
+}

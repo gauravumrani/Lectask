@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.tasks-column {
+  border: 1px solid $lightGrey;
+  border-radius: 5px;
+  
+  .title {
+    @include backgroudMaterialBlue();
+    padding: 5px;
+  }
+  .wrapper {
+    padding: 10px 20px;
+  }
+}
+
+.card-subtitle {
+  font-size: 11px;
+  color: grey;
+}
+
+.card-text {
+  font-size: 13px;
+}
+
+.card {
+  margin-top: 10px;
+}

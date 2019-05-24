@@ -10,22 +10,17 @@ const Cardthree = (props) => {
     <div className="tasks-column">
       <div className="title">Done</div>
       <div className="wrapper">
-        <Card draggable="true">
-          <CardBody>
-            <CardTitle>Card title</CardTitle>
-            <CardSubtitle>Card subtitle</CardSubtitle>
-            <CardText>Some quick Cardone text to build on the card title and make up the bulk of the card's content.</CardText>
-            <Button>Button</Button>
-          </CardBody>
-        </Card>
-        <Card draggable="true">
-          <CardBody>
-            <CardTitle>Card title</CardTitle>
-            <CardSubtitle>Card subtitle</CardSubtitle>
-            <CardText>Some quick Cardone text to build on the card title and make up the bulk of the card's content.</CardText>
-            <Button>Button</Button>
-          </CardBody>
-        </Card>
+        {
+          props.card.allTasks.map(el => (
+            <Card draggable="true" key={el.id}>
+              <CardBody>
+                <CardTitle>{el.title}</CardTitle>
+                <CardText>{el.description}</CardText>
+                <Button>Button</Button>
+              </CardBody>
+            </Card>
+          ))
+        }
       </div>
     </div>
   );

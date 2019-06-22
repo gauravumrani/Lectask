@@ -1,9 +1,41 @@
 import * as React from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Button
+} from 'reactstrap';
 
-import HeaderPage from '../../pages/Header';
 import {headerState}  from './interface';
 
 import './style.scss';
+
+const Header = ({nav}) => {
+  return (
+    <Navbar className="header-blue" expand="md">
+      <NavbarBrand className="text-white" href="/">reactstrap</NavbarBrand>
+      <NavbarToggler onClick={nav.toggle} />
+      <Collapse isOpen={nav.isOpen} navbar>
+        <Nav className="ml-auto" navbar>
+          <NavItem>
+            <NavLink className="text-white" href="/boards/">
+              <Button className="dark" color="primary">All Boards</Button>
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink className="text-white" href="/components/">
+              <Button className="dark" color="primary">Settings</Button>
+            </NavLink>
+          </NavItem>
+        </Nav>
+      </Collapse>
+    </Navbar>
+  );
+}
 
 export default class HeaderComponent extends React.Component <{}, headerState>{
   constructor(props) {
@@ -26,7 +58,7 @@ export default class HeaderComponent extends React.Component <{}, headerState>{
       toggle: this.toggle,
     };
     return (
-      <HeaderPage nav = {navSettings}/>
+      <Header nav = {navSettings}/>
     );
   }
 }

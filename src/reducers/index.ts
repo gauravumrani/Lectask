@@ -1,8 +1,8 @@
-import { ADD_TASK, REMOVE_TASK, AllTaskContainerState, TaskActionTypes } from "../interfaces/task";
+import { ADD_TASK, REMOVE_TASK, MainState, TaskActionTypes } from "../interfaces/task";
 
-const initialState: AllTaskContainerState = {
-  tasks : {
-    cardOne: {
+const initialState: MainState = {
+  cards: {
+    '1': {
       name: 'To Do',
       allTasks: [
         {
@@ -12,35 +12,41 @@ const initialState: AllTaskContainerState = {
         }
       ]
     },
-    cardTwo: {
+    '2': {
       name: 'In Progress',
       allTasks: [
         {
-          id: '1',
+          id: '2',
           title: 'This is a dummy title which is in progress',
           description: 'This is a description',
         }
       ]
     },
-    cardThree: {
-      name: 'Done',
+    '3': {
+      name: 'Completed',
       allTasks: [
-        {
-          id: '1',
-          title: 'This is a dummy title which is done',
-          description: 'This is a description'
-        },
-        {
-          id: '2',
-          title: 'One more done tasks',
-          description: 'This is a done tasks'
-        }
+
       ]
     }
   }
-}
+};
 
 const rootReducer = (state = initialState, action: TaskActionTypes) => {
+  switch (action.type) {
+    case ADD_TASK:
+      return {
+        cards: {
+          ...state.cards,
+          '1': {
+            ...state.cards['1'],
+            allTasks: [
+              ...state.cards['1'].allTasks,
+              action.payload
+            ]
+          }
+        }
+      }
+  }
   return state;
 };
 

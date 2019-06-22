@@ -3,19 +3,19 @@ export const REMOVE_TASK = 'REMOVE_TASK';
 export const MOVE_TASK = 'MOVE_TASK';
 
 export interface Task {
-  id: string;
+  id?: string;
   title: string;
   description: string;
 }
 
-export interface AllTaskContainerState {
-  tasks: AllTaskState;
+export interface MainState {
+  cards: {
+    [key: string]: TaskContainer;
+  };
 }
 
-export interface AllTaskState {
-  cardOne: TaskContainer;
-  cardTwo: TaskContainer;
-  cardThree: TaskContainer;
+export interface ITaskDispatchProps {
+ addTask: (task: Task) => void;
 }
 
 export interface TaskContainer {

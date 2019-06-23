@@ -1,32 +1,34 @@
-import { ADD_TASK, REMOVE_TASK, MainState, TaskActionTypes } from "../interfaces/task";
+import _ from 'lodash';
+
+import { ADD_TASK, REMOVE_TASK, MainState, TaskActionTypes, Task } from "../interfaces/task";
+import {TASK_TYPES} from '../constants';
+
+let todoTasks: Task[] = [];
+let progressTasks: Task[] = [];
+let doneTasks: Task[] = [];
+
+const localStorageData = localStorage.getItem('state')
+
+if(localStorageData) {
+  const allTasks: MainState = JSON.parse(localStorageData);
+  todoTasks = allTasks.cards[TASK_TYPES.TODO].allTasks;
+  progressTasks = allTasks.cards[TASK_TYPES.IN_PROGRESS].allTasks;
+  doneTasks = allTasks.cards[TASK_TYPES.DONE].allTasks;
+}
 
 const initialState: MainState = {
   cards: {
-    '1': {
+    [TASK_TYPES.TODO]: {
       name: 'To Do',
-      allTasks: [
-        {
-          id: '1',
-          title: 'This is a dummy title',
-          description: 'This is a description'
-        }
-      ]
+      allTasks: todoTasks,
     },
-    '2': {
+    [TASK_TYPES.IN_PROGRESS]: {
       name: 'In Progress',
-      allTasks: [
-        {
-          id: '2',
-          title: 'This is a dummy title which is in progress',
-          description: 'This is a description',
-        }
-      ]
+      allTasks: progressTasks,
     },
-    '3': {
+    [TASK_TYPES.DONE]: {
       name: 'Completed',
-      allTasks: [
-
-      ]
+      allTasks: doneTasks,
     }
   }
 };
@@ -37,10 +39,10 @@ const rootReducer = (state = initialState, action: TaskActionTypes) => {
       return {
         cards: {
           ...state.cards,
-          '1': {
-            ...state.cards['1'],
+          [TASK_TYPES.TODO]: {
+            ...state.cards[TASK_TYPES.TODO],
             allTasks: [
-              ...state.cards['1'].allTasks,
+              ...state.cards[TASK_TYPES.TODO].allTasks,
               action.payload
             ]
           }

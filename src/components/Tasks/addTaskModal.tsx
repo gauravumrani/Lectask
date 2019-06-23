@@ -4,6 +4,7 @@ import {
   ModalBody, ModalFooter, Form, FormGroup, Label, Input
 } from 'reactstrap';
 
+import {TASK_TYPES} from '../../constants';
 import {ITaskModalState, ITaskModalProps} from './interface';
 
 class AddTasksModalComponent extends React.Component<ITaskModalProps, ITaskModalState> {
@@ -13,6 +14,7 @@ class AddTasksModalComponent extends React.Component<ITaskModalProps, ITaskModal
       task: {
         title: '',
         description: '',
+        type: TASK_TYPES.TODO,
       }
     };
     this.addTask = this.addTask.bind(this);
@@ -38,6 +40,7 @@ class AddTasksModalComponent extends React.Component<ITaskModalProps, ITaskModal
         task: {
           title: '',
           description: '',
+          type: TASK_TYPES.TODO,
         }
       };
     })

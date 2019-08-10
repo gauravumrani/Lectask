@@ -7,11 +7,11 @@ import Tasks from '../Tasks';
 import './style.scss';
 
 class App extends React.Component {
-  render() {
+  render(): React.ReactNode {
     return (
       <div>
-        <Header/>
-        <Tasks/>
+        <Header />
+        <Tasks />
       </div>
     );
   }

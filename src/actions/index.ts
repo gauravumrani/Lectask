@@ -5,7 +5,7 @@ export const addTask = (task: Task): TaskActionTypes => ({
   payload: task
 });
 
-export const removeTodo = (task: Task): TaskActionTypes => ({
+export const deleteTask = (task: Task): TaskActionTypes => ({
   type: REMOVE_TASK,
   payload: task
 });

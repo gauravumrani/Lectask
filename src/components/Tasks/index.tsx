@@ -1,36 +1,24 @@
 import * as React from 'react';
 import { connect } from "react-redux";
 import {
-  Container, Row, Col, Card, CardText, CardBody, CardTitle, Button
+  Container, Row, Col, Card, CardText, CardBody, CardTitle, Button, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
+
 import {addTask} from '../../actions/index';
-import {MainState, Task, ITaskDispatchProps} from '../../interfaces/task';
+import {MainState, Task, TaskDispatchProps} from '../../interfaces/task';
 import AddTasksModalComponent from './addTaskModal';
-import {ITaskState} from './interface';
+import {TaskState} from './interface';
+import CardWrapper from '../Cards/CardWrapper';
 
 import './style.scss';
 
-const mapStateToProps = (state) => {
-  return state;
-};
+const mapStateToProps = (state: MainState): MainState => state;
 
-const mapDispatchToProps = (dispatch) => ({
-  addTask: (task: Task) => dispatch(addTask(task)),
+const mapDispatchToProps = (dispatch: any): any => ({
+  addTask: (task: Task): any => dispatch(addTask(task)),
 });
 
-const CardWrapper= (props) => {
-  return (
-    <Card draggable="true">
-      <CardBody>
-        <CardTitle>{props.element.title}</CardTitle>
-        <CardText>{props.element.description}</CardText>
-        <Button>Button</Button>
-      </CardBody>
-    </Card>
-  )
-}
-
-const CardContainer = (props) => {
+const CardContainer = (props: {card: any}): JSX.Element => {
   const allTasks = props.card.allTasks;
   return (
     <div className="tasks-column">
@@ -38,7 +26,7 @@ const CardContainer = (props) => {
       <div className="wrapper">
         {!allTasks.length && <span>No Task Available</span>}
         {
-          allTasks && (allTasks.map(el => <CardWrapper element={el} key={el.id}/>))
+          allTasks && (allTasks.map((el: Task): JSX.Element => <CardWrapper {...el} key={el.id} />))
         }
       </div>
     </div>
@@ -46,11 +34,11 @@ const CardContainer = (props) => {
 };
 
 type Props = ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps>
+ReturnType<typeof mapDispatchToProps>
 
 
-class TasksComponent extends React.Component<Props, ITaskState> {
-  constructor(props) {
+class TasksComponent extends React.Component<Props, TaskState> {
+  constructor(props: Props) {
     super(props);
     this.addTask = this.addTask.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
@@ -59,20 +47,20 @@ class TasksComponent extends React.Component<Props, ITaskState> {
     }
   }
 
-  addTask(taskData: Task) {
+  addTask(taskData: Task): void {
     const task = taskData;
     task.id = (new Date).getTime().toString();
     this.props.addTask(task);
     this.toggleModal();
   }
 
-  toggleModal() {
-    this.setState(prevState => ({
-      modal: !prevState.modal,
-    }));
+  toggleModal(): void {
+    this.setState({
+      modal: !this.state.modal,
+    });
   }
 
-  render() {
+  render(): React.ReactNode {
     const {cards} = this.props;
     return (
       <Container fluid>
@@ -81,10 +69,10 @@ class TasksComponent extends React.Component<Props, ITaskState> {
             <Button color="primary" className="dark" onClick={this.toggleModal}>Add Task</Button>
           </Col>
           {
-            Object.keys(cards).map((value, i) => (
-            <Col md="4" key={i}>
-              <CardContainer card={cards[value]}/>
-            </Col>
+            Object.keys(cards).map((value, i): JSX.Element => (
+              <Col md="4" key={i}>
+                <CardContainer card={cards[value]}/>
+              </Col>
             ))
           }
           <AddTasksModalComponent addTask={this.addTask} isOpen={this.state.modal} toggleModal={this.toggleModal}/>
@@ -94,5 +82,5 @@ class TasksComponent extends React.Component<Props, ITaskState> {
   }
 }
 
-const Task = connect<MainState, ITaskDispatchProps>(mapStateToProps, mapDispatchToProps)(TasksComponent);
-export default Task;
+const TasksC = connect<MainState, TaskDispatchProps>(mapStateToProps, mapDispatchToProps)(TasksComponent);
+export default TasksC;

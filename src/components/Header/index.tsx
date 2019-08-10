@@ -14,7 +14,7 @@ import {headerState}  from './interface';
 
 import './style.scss';
 
-const Header = ({nav}) => {
+const Header = ({nav}: {nav: any}): JSX.Element => {
   return (
     <Navbar className="header-blue" expand="md">
       <NavbarBrand className="text-white" href="/">reactstrap</NavbarBrand>
@@ -38,7 +38,7 @@ const Header = ({nav}) => {
 }
 
 export default class HeaderComponent extends React.Component <{}, headerState>{
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -46,13 +46,13 @@ export default class HeaderComponent extends React.Component <{}, headerState>{
       isOpen: false
     };
   }
-  toggle() {
+  toggle(): void {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
 
-  render() {
+  render(): React.ReactNode {
     const navSettings = {
       isOpen: this.state.isOpen,
       toggle: this.toggle,

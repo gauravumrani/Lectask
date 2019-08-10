@@ -15,8 +15,9 @@ export interface MainState {
   };
 }
 
-export interface ITaskDispatchProps {
- addTask: (task: Task) => void;
+export interface TaskDispatchProps {
+  addTask: (task: Task) => void;
+  deleteTask: (task: Task) => void;
 }
 
 export interface TaskContainer {

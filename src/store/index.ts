@@ -3,9 +3,7 @@ import rootReducer from "../reducers/index";
 
 const store = createStore(rootReducer);
 
-store.subscribe(() => {
-  localStorage.setItem('state', JSON.stringify(store.getState()))
-});
+store.subscribe((): void => localStorage.setItem('state', JSON.stringify(store.getState())));
 
 export type AppState = ReturnType<typeof rootReducer>
 

@@ -1,6 +1,4 @@
-import _ from 'lodash';
-
-import { ADD_TASK, REMOVE_TASK, MainState, TaskActionTypes, Task } from "../interfaces/task";
+import { ADD_TASK, MainState, TaskActionTypes, Task, REMOVE_TASK } from "../interfaces/task";
 import {TASK_TYPES} from '../constants';
 
 let todoTasks: Task[] = [];
@@ -9,7 +7,7 @@ let doneTasks: Task[] = [];
 
 const localStorageData = localStorage.getItem('state')
 
-if(localStorageData) {
+if (localStorageData) {
   const allTasks: MainState = JSON.parse(localStorageData);
   todoTasks = allTasks.cards[TASK_TYPES.TODO].allTasks;
   progressTasks = allTasks.cards[TASK_TYPES.IN_PROGRESS].allTasks;
@@ -33,7 +31,21 @@ const initialState: MainState = {
   }
 };
 
-const rootReducer = (state = initialState, action: TaskActionTypes) => {
+const removeTask = (state: MainState, action: TaskActionTypes): MainState => {
+  const typeOfTask = action.payload.type;
+  const newState = state.cards[typeOfTask].allTasks.filter((val: Task): any => val.id !== action.payload.id );
+  return {
+    cards: {
+      ...state.cards,
+      [typeOfTask]: {
+        ...state.cards[typeOfTask],
+        allTasks: newState
+      }
+    }
+  }
+}
+
+const rootReducer = (state = initialState, action: TaskActionTypes): MainState => {
   switch (action.type) {
     case ADD_TASK:
       return {
@@ -48,6 +60,8 @@ const rootReducer = (state = initialState, action: TaskActionTypes) => {
           }
         }
       }
+    case REMOVE_TASK:
+      return removeTask(state, action);
   }
   return state;
 };

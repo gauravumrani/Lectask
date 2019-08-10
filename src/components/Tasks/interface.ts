@@ -1,14 +1,11 @@
 import {Task} from '../../interfaces/task';
 
-export interface ITaskModalState {
-  task: Task;
-}
 
-export interface ITaskState {
+export interface TaskState {
   modal: boolean;
 }
 
-export interface ITaskModalProps {
+export interface TaskModalProps {
   isOpen: boolean;
   toggleModal: () => void;
   addTask: (task: Task) => void;

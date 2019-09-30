@@ -1,4 +1,4 @@
-import { ADD_TASK, MainState, TaskActionTypes, Task, REMOVE_TASK } from "../interfaces/task";
+import { ADD_TASK, MainState, TaskActionTypes, Task, REMOVE_TASK, MOVE_TASK, MoveTaskAction } from "../interfaces/task";
 import {TASK_TYPES} from '../constants';
 
 let todoTasks: Task[] = [];
@@ -45,6 +45,33 @@ const removeTask = (state: MainState, action: TaskActionTypes): MainState => {
   }
 }
 
+const moveTask = (state: MainState, action: MoveTaskAction): MainState => {
+  const typeOfTask = action.payload.type;
+  const typeOfMoveTask = action.action;
+  const movedTask = {...action.payload};
+  movedTask.type = typeOfMoveTask;
+
+  const removeTaskState = state.cards[typeOfTask].allTasks.filter((val: Task): any => val.id !== action.payload.id);
+  const movedTaskState = state.cards[typeOfMoveTask].allTasks = [
+    ...state.cards[typeOfMoveTask].allTasks,
+    movedTask
+  ];
+
+  return {
+    cards: {
+      ...state.cards,
+      [typeOfTask]: {
+        ...state.cards[typeOfTask],
+        allTasks: removeTaskState
+      },
+      [typeOfMoveTask]: {
+        ...state.cards[typeOfMoveTask],
+        allTasks: movedTaskState
+      }
+    }
+  }
+}
+
 const rootReducer = (state = initialState, action: TaskActionTypes): MainState => {
   switch (action.type) {
     case ADD_TASK:
@@ -62,6 +89,8 @@ const rootReducer = (state = initialState, action: TaskActionTypes): MainState =
       }
     case REMOVE_TASK:
       return removeTask(state, action);
+    case MOVE_TASK:
+      return moveTask(state, action);
   }
   return state;
 };

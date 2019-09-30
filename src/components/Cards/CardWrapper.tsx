@@ -5,12 +5,13 @@ import {
   Card, CardText, CardBody, CardTitle, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
 
-import {deleteTask} from '../../actions/index';
+import {deleteTask, moveTask} from '../../actions/index';
 import {Task, TaskDispatchProps} from '../../interfaces/task';
-
+import {TASK_TYPES} from '../../constants';
 
 const mapDispatchToProps = (dispatch: any): any => ({
   deleteTask: (task: Task): any => dispatch(deleteTask(task)),
+  moveTask: (task: Task, action: string): any => dispatch(moveTask(task, action)),
 });
 
 type Props = Task & TaskDispatchProps;
@@ -24,11 +25,26 @@ class CardWrapper extends React.Component<Props> {
     return (
       <Card draggable>
         <UncontrolledDropdown>
-          <DropdownToggle className="dropdownMenu float-right">
+          <DropdownToggle className="dropdownMenu">
             ...
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem onClick={(): void => this.props.deleteTask(this.props)}>Delete</DropdownItem>
+            {
+              this.props.type && this.props.type === TASK_TYPES.TODO &&
+              <DropdownItem onClick={(): void => this.props.moveTask(this.props, TASK_TYPES.IN_PROGRESS)}>Move to InProgress</DropdownItem>
+            }
+            {
+              this.props.type && this.props.type === TASK_TYPES.IN_PROGRESS &&
+              <div>
+                <DropdownItem onClick={(): void => this.props.moveTask(this.props, TASK_TYPES.TODO)}>Move to Todo</DropdownItem>
+                <DropdownItem onClick={(): void => this.props.moveTask(this.props, TASK_TYPES.DONE)}>Move to Done</DropdownItem>
+              </div>
+            }
+            {
+              this.props.type && this.props.type === TASK_TYPES.DONE &&
+              <DropdownItem onClick={(): void => this.props.moveTask(this.props, TASK_TYPES.IN_PROGRESS)}>Move to In Progress</DropdownItem>
+            }
           </DropdownMenu>
         </UncontrolledDropdown>
         <CardBody>

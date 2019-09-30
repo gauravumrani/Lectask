@@ -18,6 +18,7 @@ export interface MainState {
 export interface TaskDispatchProps {
   addTask: (task: Task) => void;
   deleteTask: (task: Task) => void;
+  moveTask: (task: Task, action: string) => void;
 }
 
 export interface TaskContainer {
@@ -38,7 +39,8 @@ export interface RemoveTaskAction {
 export interface MoveTaskAction {
   type: typeof MOVE_TASK;
   payload: Task;
+  action: string;
 }
 
-export type TaskActionTypes = AddTaskAction | RemoveTaskAction | MoveTaskAction;
+export type TaskActionTypes = MoveTaskAction | AddTaskAction | RemoveTaskAction ;
 

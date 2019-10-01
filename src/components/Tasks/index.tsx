@@ -4,9 +4,9 @@ import {
   Container, Row, Col, Card, CardText, CardBody, CardTitle, Button, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
 
-import {addTask} from '../../actions/index';
+import {addTask, editTask} from '../../actions/index';
 import {MainState, Task, TaskDispatchProps} from '../../interfaces/task';
-import AddTasksModalComponent from './addTaskModal';
+import TasksModalComponent from './addTaskModal';
 import {TaskState} from './interface';
 import CardWrapper from '../Cards/CardWrapper';
 
@@ -16,9 +16,10 @@ const mapStateToProps = (state: MainState): MainState => state;
 
 const mapDispatchToProps = (dispatch: any): any => ({
   addTask: (task: Task): any => dispatch(addTask(task)),
+  editTask: (task: Task): any => dispatch(editTask(task)),
 });
 
-const CardContainer = (props: {card: any}): JSX.Element => {
+const CardContainer = (props: {card: any; toggleModal: (task: Task) => void}): JSX.Element => {
   const allTasks = props.card.allTasks;
   return (
     <div className="tasks-column">
@@ -26,7 +27,7 @@ const CardContainer = (props: {card: any}): JSX.Element => {
       <div className="wrapper">
         {!allTasks.length && <span>No Task Available</span>}
         {
-          allTasks && (allTasks.map((el: Task): JSX.Element => <CardWrapper {...el} key={el.id} />))
+          allTasks && (allTasks.map((el: Task): JSX.Element => <CardWrapper toggleModal={(task: Task): void => props.toggleModal(task)} {...el} key={el.id} />))
         }
       </div>
     </div>
@@ -54,8 +55,15 @@ class TasksComponent extends React.Component<Props, TaskState> {
     this.toggleModal();
   }
 
-  toggleModal(): void {
+  editTask(taskData: Task): void {
+    const task = taskData;
+    this.props.editTask(task);
+    this.toggleModal();
+  }
+
+  toggleModal(task?: Task): void {
     this.setState({
+      editTask: task,
       modal: !this.state.modal,
     });
   }
@@ -66,16 +74,16 @@ class TasksComponent extends React.Component<Props, TaskState> {
       <Container fluid>
         <Row className="mt-5">
           <Col md="12" className="mb-3">
-            <Button color="primary" className="dark" onClick={this.toggleModal}>Add Task</Button>
+            <Button color="primary" className="dark" onClick={(): void => this.toggleModal()}>Add Task</Button>
           </Col>
           {
             Object.keys(cards).map((value, i): JSX.Element => (
               <Col md="4" key={i}>
-                <CardContainer card={cards[value]}/>
+                <CardContainer card={cards[value]} toggleModal={this.toggleModal}/>
               </Col>
             ))
           }
-          <AddTasksModalComponent addTask={this.addTask} isOpen={this.state.modal} toggleModal={this.toggleModal}/>
+          <TasksModalComponent data={this.state.editTask} addTask={this.addTask} editTask={(task: Task): void => this.editTask(task)} isOpen={this.state.modal} toggleModal={(task: Task): void => this.toggleModal(task)}/>
         </Row>
       </Container>
     );

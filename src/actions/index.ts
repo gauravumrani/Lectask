@@ -1,7 +1,12 @@
-import {Task, ADD_TASK, REMOVE_TASK, MOVE_TASK, TaskActionTypes} from "../interfaces/task";
+import {Task, ADD_TASK, REMOVE_TASK, MOVE_TASK, EDIT_TASK, TaskActionTypes} from "../interfaces/task";
 
 export const addTask = (task: Task): TaskActionTypes => ({
   type: ADD_TASK,
+  payload: task
+});
+
+export const editTask = (task: Task): TaskActionTypes => ({
+  type: EDIT_TASK,
   payload: task
 });
 

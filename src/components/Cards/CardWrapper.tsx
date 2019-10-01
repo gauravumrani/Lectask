@@ -14,7 +14,9 @@ const mapDispatchToProps = (dispatch: any): any => ({
   moveTask: (task: Task, action: string): any => dispatch(moveTask(task, action)),
 });
 
-type Props = Task & TaskDispatchProps;
+type Props = Task & TaskDispatchProps & {
+  toggleModal: (task: Task) => void;
+};
 
 class CardWrapper extends React.Component<Props> {
   constructor(props: Props) {
@@ -30,6 +32,7 @@ class CardWrapper extends React.Component<Props> {
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem onClick={(): void => this.props.deleteTask(this.props)}>Delete</DropdownItem>
+            <DropdownItem onClick={(): void => this.props.toggleModal(this.props)}>Edit</DropdownItem>
             {
               this.props.type && this.props.type === TASK_TYPES.TODO &&
               <DropdownItem onClick={(): void => this.props.moveTask(this.props, TASK_TYPES.IN_PROGRESS)}>Move to InProgress</DropdownItem>

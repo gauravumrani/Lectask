@@ -1,4 +1,6 @@
-import { ADD_TASK, MainState, TaskActionTypes, Task, REMOVE_TASK, MOVE_TASK, MoveTaskAction } from "../interfaces/task";
+import * as _ from 'lodash';
+
+import { ADD_TASK, MainState, TaskActionTypes, Task, REMOVE_TASK, MOVE_TASK, MoveTaskAction, EDIT_TASK } from "../interfaces/task";
 import {TASK_TYPES} from '../constants';
 
 let todoTasks: Task[] = [];
@@ -40,6 +42,27 @@ const removeTask = (state: MainState, action: TaskActionTypes): MainState => {
       [typeOfTask]: {
         ...state.cards[typeOfTask],
         allTasks: newState
+      }
+    }
+  }
+}
+
+// do edit task
+const editTask = (state: MainState, action: TaskActionTypes): MainState => {
+  const typeOfTask = action.payload.type;
+  const updatedTasks = _.map(state.cards[typeOfTask].allTasks, (task): Task => {
+    let currentTask = task;
+    if (task.id === action.payload.id) {
+      currentTask = action.payload;
+    }
+    return currentTask;
+  });
+  return {
+    cards: {
+      ...state.cards,
+      [typeOfTask]: {
+        ...state.cards[typeOfTask],
+        allTasks: updatedTasks,
       }
     }
   }
@@ -91,6 +114,8 @@ const rootReducer = (state = initialState, action: TaskActionTypes): MainState =
       return removeTask(state, action);
     case MOVE_TASK:
       return moveTask(state, action);
+    case EDIT_TASK:
+      return editTask(state, action);
   }
   return state;
 };

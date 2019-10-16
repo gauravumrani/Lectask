@@ -19,14 +19,17 @@ if (localStorageData) {
 const initialState: MainState = {
   cards: {
     [TASK_TYPES.TODO]: {
+      type: TASK_TYPES.TODO,
       name: 'To Do',
       allTasks: todoTasks,
     },
     [TASK_TYPES.IN_PROGRESS]: {
+      type: TASK_TYPES.IN_PROGRESS,
       name: 'In Progress',
       allTasks: progressTasks,
     },
     [TASK_TYPES.DONE]: {
+      type: TASK_TYPES.DONE,
       name: 'Completed',
       allTasks: doneTasks,
     }

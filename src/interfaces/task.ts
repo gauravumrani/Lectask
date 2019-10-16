@@ -1,3 +1,5 @@
+import {TASK_TYPES} from "../constants";
+
 export const ADD_TASK = 'ADD_TASK';
 export const REMOVE_TASK = 'REMOVE_TASK';
 export const MOVE_TASK = 'MOVE_TASK';
@@ -24,6 +26,7 @@ export interface TaskDispatchProps {
 }
 
 export interface TaskContainer {
+  type: string;
   name: string;
   allTasks: Task[];
 }

@@ -23,9 +23,13 @@ class CardWrapper extends React.Component<Props> {
     super(props);
   }
 
+  drag(e: React.DragEvent<HTMLElement>, task: Task): void {
+    e.dataTransfer.setData('transfer', JSON.stringify(task));
+  }
+
   render(): React.ReactNode {
     return (
-      <Card draggable>
+      <Card draggable onDragStart={(e): void => {this.drag(e, this.props)}}>
         <UncontrolledDropdown>
           <DropdownToggle className="dropdownMenu">
             ...
@@ -35,7 +39,7 @@ class CardWrapper extends React.Component<Props> {
             <DropdownItem onClick={(): void => this.props.toggleModal(this.props)}>Edit</DropdownItem>
             {
               this.props.type && this.props.type === TASK_TYPES.TODO &&
-              <DropdownItem onClick={(): void => this.props.moveTask(this.props, TASK_TYPES.IN_PROGRESS)}>Move to InProgress</DropdownItem>
+              <DropdownItem onClick={(): void => this.props.moveTask(this.props , TASK_TYPES.IN_PROGRESS)}>Move to InProgress</DropdownItem>
             }
             {
               this.props.type && this.props.type === TASK_TYPES.IN_PROGRESS &&

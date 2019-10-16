@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { connect } from "react-redux";
 import {
-  Container, Row, Col, Card, CardText, CardBody, CardTitle, Button, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
+  Container, Row, Col, Button,
 } from 'reactstrap';
 
 import {addTask, editTask} from '../../actions/index';
 import {MainState, Task, TaskDispatchProps} from '../../interfaces/task';
 import TasksModalComponent from './addTaskModal';
 import {TaskState} from './interface';
-import CardWrapper from '../Cards/CardWrapper';
-
+import CardContainer from '../CardContainers/CardContainer';
 import './style.scss';
 
 const mapStateToProps = (state: MainState): MainState => state;
@@ -18,21 +17,6 @@ const mapDispatchToProps = (dispatch: any): any => ({
   addTask: (task: Task): any => dispatch(addTask(task)),
   editTask: (task: Task): any => dispatch(editTask(task)),
 });
-
-const CardContainer = (props: {card: any; toggleModal: (task: Task) => void}): JSX.Element => {
-  const allTasks = props.card.allTasks;
-  return (
-    <div className="tasks-column">
-      <div className="title">{props.card.name}</div>
-      <div className="wrapper">
-        {!allTasks.length && <span>No Task Available</span>}
-        {
-          allTasks && (allTasks.map((el: Task): JSX.Element => <CardWrapper toggleModal={(task: Task): void => props.toggleModal(task)} {...el} key={el.id} />))
-        }
-      </div>
-    </div>
-  );
-};
 
 type Props = ReturnType<typeof mapStateToProps> &
 ReturnType<typeof mapDispatchToProps>

@@ -1,0 +1,11 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+.btn-primary.dark {
+  background-color: #1b4e77;
+  border-color: #194467;
+}
+
+.btn-primary.dark:not(:disabled):not(.disabled).active, .btn-primary.dark:not(:disabled):not(.disabled):active, .show>.btn-primary.dark.dropdown-toggle {
+  background-color: #19405f;
+  border-color: #16334a;
+}

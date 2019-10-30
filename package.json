@@ -1,7 +1,7 @@
 {
   "name": "lectask",
-  "version": "1.0.0",
-  "description": "Electron based task management application which lets you to organise your tasks.",
+  "version": "1.1.0",
+  "description": "Task management application which lets you to organise your tasks.",
   "main": "index.js",
   "scripts": {
     "serve": "webpack-dev-server --mode development --open --hot",

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from "react-redux";
 
-import {Task, TaskContainer, TaskDispatchProps, MainState} from '../../interfaces/task';
+import {Task, TaskContainer, TaskDispatchProps} from '../../interfaces/task';
 import {moveTask} from '../../actions/index';
 
-import CardWrapper from '../Cards/CardWrapper';
+import Card from '../Cards/Card';
 
-type Props = TaskDispatchProps & {
+interface CardContainerProps extends TaskDispatchProps {
   card: any;
   toggleModal: (task: Task) => void;
 }
@@ -16,8 +16,8 @@ const mapDispatchToProps = (dispatch: any): any => ({
   moveTask: (task: Task, action: string): any => dispatch(moveTask(task, action)),
 });
 
-class CardContainer extends React.Component<Props> {
-  constructor(props: Props) {
+class CardContainer extends React.Component<CardContainerProps> {
+  constructor(props: CardContainerProps) {
     super(props);
   }
 
@@ -47,7 +47,7 @@ class CardContainer extends React.Component<Props> {
         <div className="wrapper">
           {!allTasks.length && <span>No Task Available</span>}
           {
-            allTasks && (allTasks.map((el: Task): JSX.Element => <CardWrapper toggleModal={(task: Task): void => this.props.toggleModal(task)} {...el} key={el.id} />))
+            allTasks && (allTasks.map((el: Task): JSX.Element => <Card toggleModal={(task: Task): void => this.props.toggleModal(task)} {...el} key={el.id} />))
           }
         </div>
       </div>

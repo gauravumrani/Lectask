@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
-import { ADD_TASK, MainState, TaskActionTypes, Task, REMOVE_TASK, MOVE_TASK, MoveTaskAction, EDIT_TASK } from "../interfaces/task";
-import {TASK_TYPES} from '../constants';
+import {MainState, TaskActionTypes, Task, MoveTaskAction} from "../interfaces/task";
+import {TASK_TYPES, TASK_ACTIONS} from '../constants';
 
 let todoTasks: Task[] = [];
 let progressTasks: Task[] = [];
@@ -35,6 +35,21 @@ const initialState: MainState = {
     }
   }
 };
+
+const addTask = (state: MainState, action: TaskActionTypes): MainState => {
+  return {
+    cards: {
+      ...state.cards,
+      [TASK_TYPES.TODO]: {
+        ...state.cards[TASK_TYPES.TODO],
+        allTasks: [
+          ...state.cards[TASK_TYPES.TODO].allTasks,
+          action.payload
+        ]
+      }
+    }
+  }
+}
 
 const removeTask = (state: MainState, action: TaskActionTypes): MainState => {
   const typeOfTask = action.payload.type;
@@ -73,7 +88,7 @@ const editTask = (state: MainState, action: TaskActionTypes): MainState => {
 
 const moveTask = (state: MainState, action: MoveTaskAction): MainState => {
   const typeOfTask = action.payload.type;
-  const typeOfMoveTask = action.action;
+  const typeOfMoveTask = action.moveTo || TASK_TYPES.TODO;
   const movedTask = {...action.payload};
   movedTask.type = typeOfMoveTask;
 
@@ -100,24 +115,13 @@ const moveTask = (state: MainState, action: MoveTaskAction): MainState => {
 
 const rootReducer = (state = initialState, action: TaskActionTypes): MainState => {
   switch (action.type) {
-    case ADD_TASK:
-      return {
-        cards: {
-          ...state.cards,
-          [TASK_TYPES.TODO]: {
-            ...state.cards[TASK_TYPES.TODO],
-            allTasks: [
-              ...state.cards[TASK_TYPES.TODO].allTasks,
-              action.payload
-            ]
-          }
-        }
-      }
-    case REMOVE_TASK:
+    case TASK_ACTIONS.ADD_TASK:
+      return addTask(state, action);
+    case TASK_ACTIONS.REMOVE_TASK:
       return removeTask(state, action);
-    case MOVE_TASK:
+    case TASK_ACTIONS.MOVE_TASK:
       return moveTask(state, action);
-    case EDIT_TASK:
+    case TASK_ACTIONS.EDIT_TASK:
       return editTask(state, action);
   }
   return state;

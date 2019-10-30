@@ -18,12 +18,12 @@ const mapDispatchToProps = (dispatch: any): any => ({
   editTask: (task: Task): any => dispatch(editTask(task)),
 });
 
-type Props = ReturnType<typeof mapStateToProps> &
-ReturnType<typeof mapDispatchToProps>
+interface TasksComponent extends ReturnType<typeof mapStateToProps>, ReturnType<typeof mapDispatchToProps> {
+}
 
 
-class TasksComponent extends React.Component<Props, TaskState> {
-  constructor(props: Props) {
+class TasksComponent extends React.Component<TasksComponent, TaskState> {
+  constructor(props: TasksComponent) {
     super(props);
     this.addTask = this.addTask.bind(this);
     this.toggleModal = this.toggleModal.bind(this);

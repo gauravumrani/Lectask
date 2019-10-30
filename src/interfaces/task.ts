@@ -1,9 +1,4 @@
-import {TASK_TYPES} from "../constants";
-
-export const ADD_TASK = 'ADD_TASK';
-export const REMOVE_TASK = 'REMOVE_TASK';
-export const MOVE_TASK = 'MOVE_TASK';
-export const EDIT_TASK = 'EDIT_TASK';
+import {TASK_ACTIONS} from '../constants';
 
 export interface Task {
   id?: string;
@@ -32,25 +27,25 @@ export interface TaskContainer {
 }
 
 export interface AddTaskAction {
-  type: typeof ADD_TASK;
+  type: typeof TASK_ACTIONS.ADD_TASK;
   payload: Task;
 }
 
 export interface RemoveTaskAction {
-  type: typeof REMOVE_TASK;
+  type: typeof TASK_ACTIONS.REMOVE_TASK;
   payload: Task;
 }
 
 export interface EditTaskAction {
-  type: typeof EDIT_TASK;
+  type: typeof TASK_ACTIONS.EDIT_TASK;
   payload: Task;
 }
 
 export interface MoveTaskAction {
-  type: typeof MOVE_TASK;
+  type: typeof TASK_ACTIONS.MOVE_TASK;
   payload: Task;
-  action: string;
+  moveTo?: string;
 }
 
-export type TaskActionTypes = MoveTaskAction | AddTaskAction | RemoveTaskAction | EditTaskAction;
+export type TaskActionTypes = AddTaskAction | RemoveTaskAction | EditTaskAction | MoveTaskAction;
 

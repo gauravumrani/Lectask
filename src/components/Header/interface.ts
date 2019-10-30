@@ -1,9 +1,3 @@
-interface headerState {
+export interface HeaderState {
   isOpen: boolean;
 }
-
-
-export {
-  headerState
-};
-

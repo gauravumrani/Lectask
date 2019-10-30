@@ -14,12 +14,12 @@ const mapDispatchToProps = (dispatch: any): any => ({
   moveTask: (task: Task, action: string): any => dispatch(moveTask(task, action)),
 });
 
-type Props = Task & TaskDispatchProps & {
+interface CardWrapperProps extends Task, TaskDispatchProps {
   toggleModal: (task: Task) => void;
-};
+}
 
-class CardWrapper extends React.Component<Props> {
-  constructor(props: Props) {
+class CardWrapper extends React.Component<CardWrapperProps> {
+  constructor(props: CardWrapperProps) {
     super(props);
   }
 

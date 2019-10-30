@@ -10,7 +10,7 @@ Features
 
 
 ## Demo/ Link
-[Click Here](https://i.ibb.co/q7b4jhM/Screenshot-2019-10-17-at-10-36-47-PM.png)
+[Click Here](https://lectask.netlify.com)
 
 
 ## Tech Stack

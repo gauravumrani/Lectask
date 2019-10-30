@@ -6,7 +6,6 @@
   "scripts": {
     "serve": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
-    "start": "node ./dist/www",
     "heroku-postbuild": "npm run build",
     "lint": "eslint ./src/**/*.ts[x] --fix",
     "precommit": "npm run lint"
@@ -16,7 +15,6 @@
     "url": "git+https://github.com/gauravumrani/lectask.git"
   },
   "keywords": [
-    "electron",
     "nodejs",
     "task",
     "javascript",
@@ -57,7 +55,6 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "electron": "^5.0.0",
     "file-loader": "^4.2.0",
     "lodash": "^4.17.15",
     "react": "^16.8.6",

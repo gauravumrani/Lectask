@@ -1,10 +1,11 @@
 # Lectask
-Task management application which lets you to organise your tasks. 
+
+Task management application which lets you to organise your tasks, switch between their progress etc.
 Features
 1. Create, Edit, Delete tasks.
-2. Move tasks between Todo, InProgress, Done.
+2. Move tasks between Todo, In-Progress, Done.
 3. Drag and Drop Tasks between Todo, InProgress, Done.
-4. Tasks are stored Offline in Local Storage
+4. Tasks are stored offline in Local Storage
 
 ![Image](https://i.ibb.co/q7b4jhM/Screenshot-2019-10-17-at-10-36-47-PM.png)
 
